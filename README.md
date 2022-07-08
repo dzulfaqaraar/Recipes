@@ -1,6 +1,6 @@
-# sample
+# recipes
 
-A new Flutter project.
+Recipes Application
 
 ## Getting Started
 

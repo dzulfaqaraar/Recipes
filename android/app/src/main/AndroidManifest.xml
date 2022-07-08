@@ -1,7 +1,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.sample">
-   <application
-        android:label="sample"
+    package="com.dzulfaqar.recipes">
+
+    <uses-permission android:name="android.permission.INTERNET"/>
+
+    <application
+        android:label="Recipes"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity
