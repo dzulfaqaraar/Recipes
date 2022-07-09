@@ -23,10 +23,9 @@ class DetailPage extends StatelessWidget {
                 slivers: [
                   _DetailHeaderMobile(menu: menu, isMobile: isMobile),
                   const _DetailIngredientTitle(),
-                  _DetailIngredientItem(
-                    menu: menu,
-                    gridCount: isMobile ? 3 : 5,
-                  ),
+                  isMobile
+                      ? _DetailIngredientItemList(menu: menu)
+                      : _DetailIngredientItemGrid(menu: menu, gridCount: 5),
                   const _DetailInstructionTitle(),
                   _DetailInstructionItem(menu: menu)
                 ],
@@ -40,7 +39,7 @@ class DetailPage extends StatelessWidget {
                     slivers: [
                       _DetailHeaderWeb(menu: menu),
                       const _DetailIngredientTitle(),
-                      _DetailIngredientItem(
+                      _DetailIngredientItemGrid(
                         menu: menu,
                         gridCount: 8,
                       ),
@@ -139,8 +138,6 @@ class _DetailHeaderWeb extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final screenWidth = MediaQuery.of(context).size.width;
-
     return SliverToBoxAdapter(
       child: Column(
         children: [
@@ -205,11 +202,82 @@ class _DetailIngredientTitle extends StatelessWidget {
   }
 }
 
-class _DetailIngredientItem extends StatelessWidget {
+class _DetailIngredientItemList extends StatelessWidget {
+  final Menu menu;
+
+  const _DetailIngredientItemList({
+    Key? key,
+    required this.menu,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return SliverList(
+      delegate: SliverChildBuilderDelegate(
+        (context, index) {
+          var ingredients = menu.ingredients;
+          if (ingredients != null) {
+            var ingredient = ingredients[index];
+            return Container(
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(10),
+                color: Colors.orange,
+              ),
+              margin: const EdgeInsets.all(8),
+              padding: const EdgeInsets.all(8),
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Image.asset(
+                    'assets/ingredient/${ingredient.image}',
+                    fit: BoxFit.fitHeight,
+                    height: 100,
+                  ),
+                  const SizedBox(width: 16),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          ingredient.name,
+                          textAlign: TextAlign.start,
+                          style: const TextStyle(
+                            fontSize: 14.0,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white,
+                          ),
+                        ),
+                        const SizedBox(height: 4),
+                        Text(
+                          ingredient.description,
+                          textAlign: TextAlign.start,
+                          style: const TextStyle(
+                            fontSize: 12.0,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            );
+          } else {
+            return SizedBox.shrink();
+          }
+        },
+        childCount: menu.ingredients?.length,
+      ),
+    );
+  }
+}
+
+class _DetailIngredientItemGrid extends StatelessWidget {
   final Menu menu;
   final int gridCount;
 
-  const _DetailIngredientItem({
+  const _DetailIngredientItemGrid({
     Key? key,
     required this.menu,
     required this.gridCount,
@@ -233,30 +301,37 @@ class _DetailIngredientItem extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  Text(
-                    ingredient.name,
-                    textAlign: TextAlign.center,
-                    style: const TextStyle(
-                      fontSize: 14.0,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white,
+                  Expanded(
+                    flex: 1,
+                    child: Text(
+                      ingredient.name,
+                      textAlign: TextAlign.center,
+                      style: const TextStyle(
+                        fontSize: 14.0,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white,
+                      ),
                     ),
                   ),
                   const SizedBox(height: 4),
                   Expanded(
+                    flex: 3,
                     child: Image.asset(
                       'assets/ingredient/${ingredient.image}',
                       fit: BoxFit.fitHeight,
                     ),
                   ),
                   const SizedBox(height: 4),
-                  Text(
-                    ingredient.description,
-                    textAlign: TextAlign.center,
-                    style: const TextStyle(
-                      fontSize: 12.0,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white,
+                  Expanded(
+                    flex: 1,
+                    child: Text(
+                      ingredient.description,
+                      textAlign: TextAlign.center,
+                      style: const TextStyle(
+                        fontSize: 12.0,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white,
+                      ),
                     ),
                   ),
                 ],

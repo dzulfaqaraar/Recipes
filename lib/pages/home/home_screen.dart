@@ -49,7 +49,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 const _HomePopularTitle(),
                 if (recipes != null)
                   _HomePopularItem(
-                    recipes: recipes,
+                    recipes: recipes!,
                     onSelected: (recipe) {
                       setState(() {
                         selectedRecipe = recipe;
@@ -74,7 +74,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     const _HomePopularTitle(),
                     if (recipes != null)
                       _HomePopularItem(
-                        recipes: recipes,
+                        recipes: recipes!,
                         onSelected: (recipe) {
                           setState(() {
                             selectedRecipe = recipe;
@@ -136,7 +136,7 @@ class _HomePopularTitle extends StatelessWidget {
 }
 
 class _HomePopularItem extends StatelessWidget {
-  final List<Recipe>? recipes;
+  final List<Recipe> recipes;
   final Function onSelected;
 
   const _HomePopularItem({
@@ -150,41 +150,40 @@ class _HomePopularItem extends StatelessWidget {
     return SliverToBoxAdapter(
       child: Row(
         children: [
-          if (recipes != null)
-            ...recipes!.map((recipe) {
-              return Expanded(
-                child: Padding(
-                  padding:
-                      const EdgeInsets.symmetric(vertical: 16, horizontal: 8),
-                  child: InkWell(
-                    onTap: () {
-                      onSelected(recipe);
-                    },
-                    borderRadius: const BorderRadius.all(Radius.circular(20)),
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Column(
-                        mainAxisSize: MainAxisSize.max,
-                        children: [
-                          Image.asset(
-                            'assets/ingredient/${recipe.image}',
-                            width: 200,
+          ...recipes.map((recipe) {
+            return Expanded(
+              child: Padding(
+                padding:
+                    const EdgeInsets.symmetric(vertical: 16, horizontal: 8),
+                child: InkWell(
+                  onTap: () {
+                    onSelected(recipe);
+                  },
+                  borderRadius: const BorderRadius.all(Radius.circular(20)),
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Column(
+                      mainAxisSize: MainAxisSize.max,
+                      children: [
+                        Image.asset(
+                          'assets/ingredient/${recipe.image}',
+                          width: 200,
+                        ),
+                        const SizedBox(height: 8),
+                        Text(
+                          recipe.name,
+                          style: const TextStyle(
+                            fontSize: 16,
+                            color: Colors.white,
                           ),
-                          const SizedBox(height: 8),
-                          Text(
-                            recipe.name,
-                            style: const TextStyle(
-                              fontSize: 16,
-                              color: Colors.white,
-                            ),
-                          ),
-                        ],
-                      ),
+                        ),
+                      ],
                     ),
                   ),
                 ),
-              );
-            }).toList(),
+              ),
+            );
+          }).toList(),
         ],
       ),
     );
@@ -258,26 +257,28 @@ class _HomeMenuItemMobile extends StatelessWidget {
                       ),
                     ),
                     const SizedBox(width: 16),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        const SizedBox(height: 8),
-                        Text(
-                          menu.name,
-                          style: const TextStyle(
-                            fontSize: 16,
-                            color: Colors.white,
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const SizedBox(height: 8),
+                          Text(
+                            menu.name,
+                            style: const TextStyle(
+                              fontSize: 16,
+                              color: Colors.white,
+                            ),
                           ),
-                        ),
-                        const SizedBox(height: 8),
-                        Text(
-                          'Total ingredients: ${menu.ingredients?.length ?? 0}',
-                          style: const TextStyle(
-                            fontSize: 14,
-                            color: Colors.white,
+                          const SizedBox(height: 8),
+                          Text(
+                            'Total ingredients: ${menu.ingredients?.length ?? 0}',
+                            style: const TextStyle(
+                              fontSize: 14,
+                              color: Colors.white,
+                            ),
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
                   ],
                 ),

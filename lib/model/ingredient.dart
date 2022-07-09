@@ -16,5 +16,6 @@ class Ingredient {
       );
 
   @override
-  String toString() => 'Ingredient(name: $name, image: $image, description: $description)';
+  String toString() =>
+      'Ingredient(name: $name, image: $image, description: $description)';
 }
