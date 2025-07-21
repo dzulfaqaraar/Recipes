@@ -4,17 +4,18 @@ import 'package:recipes/utils/colors.dart';
 import 'package:recipes/model/menu.dart';
 
 class DetailPage extends StatelessWidget {
-  Menu menu;
+  final Menu menu;
 
-  DetailPage({
-    Key? key,
+  const DetailPage({
+    super.key,
     required this.menu,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: veryDarkOrange.withOpacity(0.8),
+        backgroundColor: veryDarkOrange.withValues(alpha: 0.8),
+        extendBodyBehindAppBar: true,
         body: LayoutBuilder(
           builder: (BuildContext context, BoxConstraints constraints) {
             if (constraints.maxWidth <= 1200) {
@@ -60,10 +61,10 @@ class _DetailHeaderMobile extends StatelessWidget {
   final bool isMobile;
 
   const _DetailHeaderMobile({
-    Key? key,
+    super.key,
     required this.menu,
     required this.isMobile,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -108,7 +109,7 @@ class _DetailHeaderMobile extends StatelessWidget {
                   borderRadius: const BorderRadius.only(
                     topRight: Radius.circular(20),
                   ),
-                  color: veryDarkOrange.withOpacity(0.9),
+                  color: veryDarkOrange.withValues(alpha: 0.9),
                 ),
                 padding:
                     const EdgeInsets.symmetric(vertical: 16, horizontal: 16),
@@ -130,9 +131,9 @@ class _DetailHeaderMobile extends StatelessWidget {
 
 class _DetailHeaderWeb extends StatelessWidget {
   const _DetailHeaderWeb({
-    Key? key,
+    super.key,
     required this.menu,
-  }) : super(key: key);
+  });
 
   final Menu menu;
 
@@ -179,8 +180,8 @@ class _DetailHeaderWeb extends StatelessWidget {
 
 class _DetailIngredientTitle extends StatelessWidget {
   const _DetailIngredientTitle({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -206,9 +207,9 @@ class _DetailIngredientItemList extends StatelessWidget {
   final Menu menu;
 
   const _DetailIngredientItemList({
-    Key? key,
+    super.key,
     required this.menu,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -264,7 +265,7 @@ class _DetailIngredientItemList extends StatelessWidget {
               ),
             );
           } else {
-            return SizedBox.shrink();
+            return const SizedBox.shrink();
           }
         },
         childCount: menu.ingredients?.length,
@@ -278,10 +279,10 @@ class _DetailIngredientItemGrid extends StatelessWidget {
   final int gridCount;
 
   const _DetailIngredientItemGrid({
-    Key? key,
+    super.key,
     required this.menu,
     required this.gridCount,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -338,7 +339,7 @@ class _DetailIngredientItemGrid extends StatelessWidget {
               ),
             );
           } else {
-            return SizedBox.shrink();
+            return const SizedBox.shrink();
           }
         },
         childCount: menu.ingredients?.length,
@@ -352,8 +353,8 @@ class _DetailIngredientItemGrid extends StatelessWidget {
 
 class _DetailInstructionTitle extends StatelessWidget {
   const _DetailInstructionTitle({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -377,9 +378,9 @@ class _DetailInstructionTitle extends StatelessWidget {
 
 class _DetailInstructionItem extends StatelessWidget {
   const _DetailInstructionItem({
-    Key? key,
+    super.key,
     required this.menu,
-  }) : super(key: key);
+  });
 
   final Menu menu;
 
@@ -416,7 +417,7 @@ class _DetailInstructionItem extends StatelessWidget {
               ),
             );
           } else {
-            return SizedBox.shrink();
+            return const SizedBox.shrink();
           }
         },
         childCount: menu.instructions?.length,

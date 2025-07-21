@@ -8,7 +8,7 @@ import 'package:recipes/pages/detail/detail_screen.dart';
 import 'package:recipes/model/recipe.dart';
 
 class HomeScreen extends StatefulWidget {
-  const HomeScreen({Key? key}) : super(key: key);
+  const HomeScreen({super.key});
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
@@ -38,7 +38,8 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: darkOrange.withOpacity(0.8),
+      backgroundColor: darkOrange.withValues(alpha: 0.8),
+      extendBodyBehindAppBar: true,
       body: LayoutBuilder(
         builder: (BuildContext context, BoxConstraints constraints) {
           if (constraints.maxWidth <= 1200) {
@@ -96,24 +97,27 @@ class _HomeScreenState extends State<HomeScreen> {
 }
 
 class _HomeAppBar extends StatelessWidget {
-  const _HomeAppBar({Key? key}) : super(key: key);
+  const _HomeAppBar({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return const SliverAppBar(
-      title: Text(
+    return SliverAppBar(
+      backgroundColor: darkOrange.withValues(alpha: 0.8),
+      title: const Text(
         "Recipe",
         style: TextStyle(color: Colors.white),
       ),
       elevation: 0,
+      pinned: true,
+      expandedHeight: 0,
     );
   }
 }
 
 class _HomePopularTitle extends StatelessWidget {
   const _HomePopularTitle({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -137,13 +141,13 @@ class _HomePopularTitle extends StatelessWidget {
 
 class _HomePopularItem extends StatelessWidget {
   final List<Recipe> recipes;
-  final Function onSelected;
+  final void Function(Recipe) onSelected;
 
   const _HomePopularItem({
-    Key? key,
+    super.key,
     required this.recipes,
     required this.onSelected,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -192,8 +196,8 @@ class _HomePopularItem extends StatelessWidget {
 
 class _HomeMenuTitle extends StatelessWidget {
   const _HomeMenuTitle({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -219,9 +223,9 @@ class _HomeMenuItemMobile extends StatelessWidget {
   final Recipe? selectedRecipe;
 
   const _HomeMenuItemMobile({
-    Key? key,
+    super.key,
     required this.selectedRecipe,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -298,9 +302,9 @@ class _HomeMenuItemTablet extends StatelessWidget {
   final Recipe? selectedRecipe;
 
   const _HomeMenuItemTablet({
-    Key? key,
+    super.key,
     required this.selectedRecipe,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -376,9 +380,9 @@ class _HomeMenuItemWeb extends StatelessWidget {
   final Recipe? selectedRecipe;
 
   const _HomeMenuItemWeb({
-    Key? key,
+    super.key,
     required this.selectedRecipe,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
